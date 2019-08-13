@@ -2,6 +2,7 @@ import warnings
 import csv
 import argparse
 import sys
+import os
 
 import numpy as np
 import scipy.optimize
@@ -124,7 +125,8 @@ if __name__ == "__main__":
         seed = np.random.RandomState()
 
     print('Loading object dimensions.')
-
+    
+    data_dir = os.path.dirname(args.annotations)
     with _open_for_csv(args.annotations) as file:
         for line, row in enumerate(csv.reader(file, delimiter=',')):
             x1, y1, x2, y2 = list(map(lambda x: int(x), row[1:5]))
@@ -133,7 +135,7 @@ if __name__ == "__main__":
                 continue
 
             if args.resize:
-                img = Image.open(row[0])
+                img = Image.open(os.path.join(data_dir, row[0]))
                 scale = compute_resize_scale(img.shape, min_side=args.image_min_side, max_side=args.image_max_side)
                 x1, y1, x2, y2 = list(map(lambda x: int(x) * scale, row[1:5]))
 
