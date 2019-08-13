@@ -8,6 +8,7 @@ import numpy as np
 import scipy.optimize
 
 from PIL import Image
+import tifffile as tiff
 from compute_overlap import compute_overlap
 
 from keras_retinanet.preprocessing.csv_generator import _open_for_csv
@@ -135,7 +136,7 @@ if __name__ == "__main__":
                 continue
 
             if args.resize:
-                img = Image.open(os.path.join(data_dir, row[0]))
+                img = tiff.imread(os.path.join(data_dir, row[0]))
                 scale = compute_resize_scale(img.shape, min_side=args.image_min_side, max_side=args.image_max_side)
                 x1, y1, x2, y2 = list(map(lambda x: int(x) * scale, row[1:5]))
 
