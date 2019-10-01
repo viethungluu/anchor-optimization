@@ -17,8 +17,8 @@ from keras_retinanet.utils.image import compute_resize_scale
 
 warnings.simplefilter("ignore")
 
-SIZES = [8, 32, 64, 128, 256]
-STRIDES = [4, 8, 16, 32, 64]
+SIZES = [32, 64, 128, 256, 512]
+STRIDES = [8, 16, 32, 64, 128]
 state = {'best_result': sys.maxsize}
 
 
